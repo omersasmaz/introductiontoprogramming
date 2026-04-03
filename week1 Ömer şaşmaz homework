@@ -1,0 +1,182 @@
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    string name = get_string("What is your name? ");
+    printf("hello, %s\n", name);
+}
+
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int height;
+
+    do
+    {
+        height = get_int("Height: ");
+    }
+    while (height < 1 || height > 8);
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < height - i - 1; j++)
+        {
+            printf(" ");
+        }
+
+        for (int j = 0; j < i + 1; j++)
+        {
+            printf("#");
+        }
+
+        printf("\n");
+    }
+}
+
+
+
+
+
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int height;
+
+    do
+    {
+        height = get_int("Height: ");
+    }
+    while (height < 1 || height > 8);
+
+    for (int i = 0; i < height; i++)
+    {
+        // boşluk
+        for (int j = 0; j < height - i - 1; j++)
+        {
+            printf(" ");
+        }
+
+        // sol #
+        for (int j = 0; j < i + 1; j++)
+        {
+            printf("#");
+        }
+
+        printf("  ");
+
+        // sağ #
+        for (int j = 0; j < i + 1; j++)
+        {
+            printf("#");
+        }
+
+        printf("\n");
+    }
+}
+
+
+
+
+
+
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    int cents;
+
+    do
+    {
+        cents = get_int("Change owed: ");
+    }
+    while (cents < 0);
+
+    int coins = 0;
+
+    coins += cents / 25;
+    cents %= 25;
+
+    coins += cents / 10;
+    cents %= 10;
+
+    coins += cents / 5;
+    cents %= 5;
+
+    coins += cents;
+
+    printf("%d\n", coins);
+}
+
+#include <cs50.h>
+#include <stdio.h>
+
+int main(void)
+{
+    long number = get_long("Number: ");
+
+    int sum = 0;
+    int count = 0;
+    long temp = number;
+
+    while (temp > 0)
+    {
+        int digit = temp % 10;
+
+        if (count % 2 == 1)
+        {
+            digit *= 2;
+            if (digit > 9)
+            {
+                digit = digit / 10 + digit % 10;
+            }
+        }
+
+        sum += digit;
+        temp /= 10;
+        count++;
+    }
+
+    // geçerli mi?
+    if (sum % 10 != 0)
+    {
+        printf("INVALID\n");
+        return 0;
+    }
+
+    // basamak sayısı
+    int length = count;
+
+    // ilk iki rakam
+    long start = number;
+    while (start >= 100)
+    {
+        start /= 10;
+    }
+
+    // kart türü
+    if (length == 15 && (start == 34 || start == 37))
+    {
+        printf("AMEX\n");
+    }
+    else if (length == 16 && (start >= 51 && start <= 55))
+    {
+        printf("MASTERCARD\n");
+    }
+    else if ((length == 13 || length == 16) && (start / 10 == 4))
+    {
+        printf("VISA\n");
+    }
+    else
+    {
+        printf("INVALID\n");
+    }
+}
